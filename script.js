@@ -170,7 +170,7 @@ function showTab(tabId) {
 }
 
 function loginAdmin() {
-    if (prompt("Clave de Admin:") === "1234") {
+    if (prompt("Clave de Admin:") === "0702") {
         showTab('admin-tab');
         renderizarTablaAdmin();
     } else alert("Error");
