@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Agua - Barrio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-shell">
+        <header class="app-header">
+            <div class="header-content">
+                <div class="logo">💧</div>
+                <div>
+                    <h1>COMISIÓN DE FOMENTO</h1>
+                    <p>Gestión de Consumo de Agua</p>
+                </div>
+            </div>
+        </header>
+
+        <nav class="app-nav">
+            <button onclick="showTab('user-tab')" class="nav-item">🏠 Vecinos</button>
+            <button onclick="loginAdmin()" class="nav-item">🛡️ Admin</button>
+        </nav>
+
+        <main class="app-main">
+            <!-- VISTA USUARIO -->
+            <section id="user-tab" class="tab-content active">
+                <div class="search-card">
+                    <h2>Consulta de Cuenta</h2>
+                    <div class="search-input-group">
+                        <input type="text" id="busqueda-id" placeholder="N° de Medidor">
+                        <button onclick="consultarHistorialCompleto()">Buscar</button>
+                    </div>
+                </div>
+
+                <div id="resultado-historial" class="history-container" style="display:none;">
+                    <div class="neighbor-card">
+                        <h3 id="nombre-vecino-cabecera">---</h3>
+                        <p class="alias">ALIAS PAGOS: CI: 6038404 - SERGIO QUIROGA</p>
+                    </div>
+                    <div class="table-wrapper">
+                        <table id="tabla-historial">
+                            <thead>
+                                <tr class="header-row">
+                                    <th>MES</th>
+                                    <th>MONTO (Gs)</th>
+                                    <th>CONSUMO (L)</th>
+                                    <th>ESTADO</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cuerpo-historial"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VISTA ADMINISTRADOR -->
+            <section id="admin-tab" class="tab-content">
+                <div class="admin-wrapper">
+                    <!-- Formulario de Registro (Se ocultará al ver detalle) -->
+                    <div class="admin-card" id="seccion-registro">
+                        <h3>🆕 Registrar Nuevo Vecino</h3>
+                        <div class="form-grid">
+                            <input type="text" id="new-id" placeholder="ID Medidor">
+                            <input type="text" id="new-nombre" placeholder="Nombre">
+                            <input type="number" id="new-lectura" placeholder="Lectura Inicial">
+                            <button onclick="crearNuevoVecino()" class="btn-primary">Registrar</button>
+                        </div>
+                    </div>
+
+                    <div id="vista-lista-general" class="admin-card">
+                        <div class="admin-card-header">
+                            <h3>📋 Carga Mensual</h3>
+                            <select id="mes-global-selector">
+                                <option value="ENERO">Enero</option>
+                                <option value="FEBRERO">Febrero</option>
+                                <option value="MARZO">Marzo</option>
+                                <option value="ABRIL">Abril</option>
+                                <option value="MAYO" selected>Mayo</option>
+                                <option value="JUNIO">Junio</option>
+                                <option value="JULIO">Julio</option>
+                                <option value="AGOSTO">Agosto</option>
+                                <option value="SEPTIEMBRE">Septiembre</option>
+                                <option value="OCTUBRE">Octubre</option>
+                                <option value="NOVIEMBRE">Noviembre</option>
+                                <option value="DICIEMBRE">Diciembre</option>
+                            </select>
+                        </div>
+                        <div id="tabla-container" class="table-wrapper"></div>
+                    </div>
+
+                    <div id="vista-detalle-vecino" class="admin-card" style="display:none;">
+                        <button onclick="volverALista()" class="btn-back">← Volver</button>
+                        <div class="neighbor-card compact">
+                            <h3 id="det-nombre">---</h3>
+                            <p>ID: <span id="det-id">---</span></p>
+                        </div>
+                        <div id="tabla-detalle-historial" class="table-wrapper"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
